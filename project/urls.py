@@ -3,5 +3,5 @@ from . import views
 
 
 urlpatterns=[
-    url('^$',views.welcome,name='welcome'),
+    url('',views.index,name='project-index'),
 ]
