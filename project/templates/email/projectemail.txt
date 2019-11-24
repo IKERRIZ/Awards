@@ -1,0 +1,3 @@
+Hi {{name}}
+
+Welcome to awwards website.Please view and post your project as you rate the other project in the site.
