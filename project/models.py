@@ -51,3 +51,49 @@ class Projects(models.Model):
         except ObjectDoesNotExist:
             raise Http404()
         return Project
+    
+    @property
+    def design(self):
+        if self.reviews.count() == 0:
+            return 5
+        return sum([r.design for r in self.reviews.all()]) / self.reviews.count()
+
+
+    @property
+    def usability(self):
+        if self.reviews.count() == 0:
+            return 5
+        return sum([r.usability for r in self.reviews.all()]) / self.reviews.count()
+    
+    @property
+    def creativity(self):
+        if self.reviews.count() == 0:
+            return 5
+        return sum([r.creativity for r in self.reviews.all()]) / self.reviews.count()
+
+    @property
+    def content(self):
+        if self.reviews.count() == 0:
+            return 5
+        return sum([r.content for r in self.reviews.all()]) / self.reviews.count()
+
+        
+class Review(models.Model):
+    ratings = (1, 1),(2, 2),(3, 3),(4, 4),(5, 5),(6, 6),(7, 7),(8, 8),(9, 9),(10, 10)
+    
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    project = models.ForeignKey(Projects, on_delete=models.CASCADE, related_name='reviews')
+    design = models.IntegerField(choices=ratings, default=0)
+    usability = models.IntegerField(choices=ratings, default=0)
+    creativity = models.IntegerField(choices=ratings, default=0)
+    content =  models.IntegerField(choices=ratings, default=0)
+    overall_score = models.IntegerField(blank=True, default=0)
+
+    def save_rate(self):
+            self.save()
+
+    def delete_rate(self):
+        self.delete()
+
+    def get_absolute_url(self):
+        return reverse('projects-index')
