@@ -17,9 +17,16 @@
                         <use xlink:href="https://www.awwwards.com/assets/images/sprite-icons.svg#search"></use>
                     </svg>
                 </div>
+                {% if user.is_authenticated %}
+                <div> <strong><a class="text-black" href="{% url 'profile-detail' %}">Profile</a></strong> |
+                    <strong><a class="text-black" href="/logout"> Logout</a></strong>
+                </div>
+                
+                {% else %}
                 <div> <strong><a class="text-black" href="{% url 'register' %}">Register </a></strong> |
                     <strong><a class="text-black" href="{% url 'login' %}"> log in</a></strong>
                 </div>
+                {% endif %}
                 <div class="item has-tablet" id="bt-submit">
                     <a href="{% url 'post-create' %}" class="button button-large">
                         <span>SUBMIT YOUR SITE!</span>
